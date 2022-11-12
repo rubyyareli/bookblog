@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#f7f7f4</color> //bacground
+    <color name="purple_500">#a35b4c</color> //boton
+    <color name="purple_700">#5e5d53</color> //gris
+    <color name="teal_200">#d9d7ca</color> //beige
+    <color name="black">#FF000000</color> //letra
+    <color name="white">#FFFFFFFF</color> //fondo
+
+</resources>

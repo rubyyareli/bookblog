@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+<group>
+    <item
+        android:id="@+id/nav_item_inicio"
+        android:icon="@drawable/ic_baseline_home_24"
+        android:title="Inicio"
+        />
+
+    <item
+        android:id="@+id/nav_item_crear"
+        android:icon="@drawable/ic_baseline_post_add_24"
+        android:title="Crear reseña"
+        />
+
+    <item
+        android:id="@+id/nav_item_ajustes"
+        android:icon="@drawable/ic_baseline_settings_24"
+        android:title="Ajustes"
+        />
+
+</group>
+</menu>
