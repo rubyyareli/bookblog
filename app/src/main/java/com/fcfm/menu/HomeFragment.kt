@@ -7,8 +7,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.FragmentContainerView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.android.volley.Request
+import com.android.volley.Response
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
+import org.json.JSONArray
+import org.json.JSONObject
 
 
 class HomeFragment : Fragment() {
@@ -16,6 +23,7 @@ class HomeFragment : Fragment() {
     private lateinit var adapter:AlbumRecyclerAdapter
     private lateinit var recyclerview:RecyclerView
     private lateinit var bookArrayList:ArrayList<Books>
+    private lateinit var fragmentCont:FragmentContainerView
 
     lateinit var titulo:Array<String>
     lateinit var description:Array<String>
@@ -24,6 +32,10 @@ class HomeFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
+        //fragmentCont = view?.findViewById<View>(R.id.fragmentContainerView) as FragmentContainerView
+
+        //val bundle = arguments
+
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
@@ -37,6 +49,11 @@ class HomeFragment : Fragment() {
         recyclerview.setHasFixedSize(true)
         adapter=AlbumRecyclerAdapter(bookArrayList)
         recyclerview.adapter=adapter
+    }
+
+    override fun onResume() {
+        super.onResume()
+        recyclerview.adapter?.notifyDataSetChanged()
     }
 
     private fun dataInitialize(){
@@ -66,10 +83,45 @@ class HomeFragment : Fragment() {
             getString(R.string.nav_header_title),
         )
 
-        for(i in titulo.indices){
-            val books =Books(titulo[i], description[i])
-            bookArrayList.add(books)
-        }
+        //val bundle = arguments
+        //val message = bundle?.getSerializable("bookList")
+        //val message = bundle?.getString("bookList")
+
+        //bookArrayList.add(Books(message.toString(), "a"))
+
+        val queue = Volley.newRequestQueue(context)
+        val url = "http://192.168.100.6/webServiceBookBlog/books.php"
+
+
+        val stringRequest = StringRequest(
+            Request.Method.GET, url, { response ->
+                val jsonArray = JSONArray(response)
+
+                for (i in 0 until jsonArray.length()){
+                    val jsonObject = JSONObject(jsonArray.getString(i))
+                    //textView.text = text.toString()
+
+                    var title = jsonObject.get("name").toString()
+                    var description = jsonObject.get("synopsis").toString()
+
+                    var books = Books(title, description)
+                    bookArrayList.add(books)
+
+                    recyclerview.adapter?.notifyDataSetChanged()
+
+                    //Toast.makeText(context, jsonArray.length().toString(), Toast.LENGTH_LONG).show()
+                }
+
+            }, { error ->  })
+
+        queue.add(stringRequest)
+
+
+
+
+        //Toast.makeText(context, resp.toString(), Toast.LENGTH_LONG).show()
+
+
 
         /*var adapter=AlbumRecyclerAdapter(bookArrayList)
         recyclerview.adapter=adapter

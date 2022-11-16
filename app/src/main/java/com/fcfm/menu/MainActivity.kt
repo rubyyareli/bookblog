@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
@@ -13,19 +14,27 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.android.volley.Request
+import com.android.volley.Response
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.navigation.NavigationView.OnNavigationItemSelectedListener
 import kotlinx.android.synthetic.main.activity_main.*
+import org.json.JSONArray
+import org.json.JSONObject
 
 class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var drawer: DrawerLayout
     private lateinit var toggle: ActionBarDrawerToggle
 
+    //private lateinit var bookArrayList:ArrayList<Books>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        replaceFragment(HomeFragment())
+        //replaceFragment(HomeFragment())
 
         /*val recycler : RecyclerView = findViewById(R.id.rcBook)
         val adapter : AlbumRecyclerAdapter=AlbumRecyclerAdapter()
@@ -37,6 +46,48 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         recycler.hasFixedSize()
         recycler.layoutManager=LinearLayoutManager(this)
         recycler.adapter=adapter*/
+
+        //bookArrayList = arrayListOf<Books>()
+
+        //val queue = Volley.newRequestQueue(this)
+        //val url = "http://192.168.100.6/webServiceBookBlog/books.php"
+
+        /*val stringRequest = StringRequest(
+            Request.Method.GET, url,
+            { response ->
+                val jsonArray = JSONArray(response)
+
+                for (i in 0 until jsonArray.length()){
+                    val jsonObject = JSONObject(jsonArray.getString(i))
+                    //textView.text = text.toString()
+
+                    var title = jsonObject.get("name").toString()
+                    var description = jsonObject.get("synopsis").toString()
+
+                    var book = Books(title, description)
+                    bookArrayList.add(book)
+
+                    Toast.makeText(applicationContext, title, Toast.LENGTH_LONG).show()
+                }
+
+            }, { error ->  })*/
+
+        //queue.add(stringRequest)
+
+        //val mFragmentManager = supportFragmentManager
+        //val mFragmentTransaction = mFragmentManager.beginTransaction()
+        //val mFragment = HomeFragment()
+
+        //val bundle = Bundle()
+        //bundle.putSerializable("bookList",  bookArrayList)
+        //bundle.putStringArrayList("bookList",  bookArrayList)
+        //val titulo = bookArrayList[1].titulo
+        //bundle.putString("bookList",  "asd")
+
+        //mFragment.arguments = bundle
+        //mFragmentTransaction.add(R.id.fragmentContainerView, mFragment).commit()
+
+
 
         val toolbar: Toolbar = findViewById(R.id.toolbar_main)
         setSupportActionBar(toolbar)
